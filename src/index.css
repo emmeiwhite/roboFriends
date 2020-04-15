@@ -16,17 +16,26 @@ code {
 .robots-wrapper {
   display: flex;
   flex-wrap: wrap;
+  margin: 1rem 0;
+  justify-content: center;
 }
 
 .robots-wrapper .card-item {
   text-align: center;
-  border: 1px solid red;
   background: linear-gradient(to right, rgb(0, 255, 242), rgb(11, 180, 172));
-  margin: 0.5rem;
+  margin: 4px;
+
   width: 250px;
+  transition: all 0.3s ease;
 }
 
 .card-item img {
   height: 200px;
   width: 200px;
+  border: none;
+}
+
+.card-item:hover {
+  transform: scale(1.03);
+  cursor: pointer;
 }
