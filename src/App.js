@@ -1,13 +1,13 @@
 import React from "react";
 // import logo from "./logo.svg";
 import "./App.css";
-import Hello from "./Hello";
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Hello />
+        <h1>That's it Folks !</h1>
+        <img src="https://robohash.org/78" alt="robots" />
       </div>
     );
   }
