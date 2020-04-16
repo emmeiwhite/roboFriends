@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import CardList from "./CardList";
-import SearchRobos from "./SearchRobos";
-import RectLoader from "./svg/Loader";
-import Scroll from "./Scroll";
+import CardList from "./../components/CardList";
+import SearchRobos from "./../components/SearchRobos";
+import RectLoader from "./../svg/Loader";
+import Scroll from "./../components/Scroll";
 import "./App.css";
 
 const h2Style = {
@@ -40,23 +40,22 @@ class App extends Component {
 
   render() {
     // Bug fixing of filtered Robots
-
-    const filteredRobots = this.state.robots.filter((robot) => {
-      return robot.name
-        .toLowerCase()
-        .includes(this.state.searchField.toLowerCase());
+    const { robots, searchField } = this.state;
+    const filteredRobots = robots.filter((robot) => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
     });
-    return (
+
+    return !robots.length ? (
+      <div style={{ textAlign: "center" }}>
+        <RectLoader />
+      </div>
+    ) : (
       <div className="App">
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
-        {this.state.robots.length > 0 ? (
-          <Scroll>
-            <CardList robots={filteredRobots} />
-          </Scroll>
-        ) : (
-          <RectLoader />
-        )}
+        <Scroll>
+          <CardList robots={filteredRobots} />
+        </Scroll>
       </div>
     );
   }
