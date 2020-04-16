@@ -15,20 +15,22 @@ class App extends Component {
     super();
     this.state = {
       robots: robots,
+      searchField: "",
     };
   }
 
   handleSearchChange = (e) => {
-    let value = e.target.value;
-    let robots = [...this.state.robots];
-
-    robots = robots.filter((robot) => {
-      return robot.name.toLowerCase().includes(value.toLowerCase());
-    });
-
     this.setState({
-      robots,
+      searchField: e.target.value,
     });
+
+    const filteredRobots = this.state.robots.filter((robot) => {
+      return robot.name
+        .toLowerCase()
+        .includes(this.state.searchField.toLowerCase());
+    });
+
+    console.log(filteredRobots);
   };
 
   render() {
