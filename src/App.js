@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import CardList from "./CardList";
-import { robots } from "./robots";
 import SearchRobos from "./SearchRobos";
 import RectLoader from "./svg/Loader";
+import Scroll from "./Scroll";
 import "./App.css";
 
 const h2Style = {
@@ -51,7 +51,9 @@ class App extends Component {
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
         {this.state.robots.length > 0 ? (
-          <CardList robots={filteredRobots} />
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
         ) : (
           <RectLoader />
         )}
