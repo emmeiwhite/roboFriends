@@ -23,22 +23,21 @@ class App extends Component {
     this.setState({
       searchField: e.target.value,
     });
+  };
+
+  render() {
+    // Bug fixing of filtered Robots
 
     const filteredRobots = this.state.robots.filter((robot) => {
       return robot.name
         .toLowerCase()
         .includes(this.state.searchField.toLowerCase());
     });
-
-    console.log(filteredRobots);
-  };
-
-  render() {
     return (
       <div className="App">
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
-        <CardList robots={this.state.robots} />
+        <CardList robots={filteredRobots} />
       </div>
     );
   }
