@@ -31,6 +31,7 @@ class App extends Component {
         });
       });
   }
+
   handleSearchChange = (e) => {
     this.setState({
       searchField: e.target.value,
@@ -49,7 +50,7 @@ class App extends Component {
       <div className="App">
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
-        {filteredRobots.length > 0 ? (
+        {this.state.robots.length > 0 ? (
           <CardList robots={filteredRobots} />
         ) : (
           <RectLoader />
