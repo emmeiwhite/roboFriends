@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(
+    to right,
+    rgb(161, 161, 231),
+    rgb(8, 8, 114)
+  );
 }
 
 code {
@@ -24,14 +29,14 @@ code {
   text-align: center;
   background: linear-gradient(to right, rgb(0, 255, 242), rgb(11, 180, 172));
   margin: 4px;
-
-  width: 250px;
+  width: 220px;
   transition: all 0.3s ease;
+  border-radius: 10px;
 }
 
 .card-item img {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   border: none;
 }
 

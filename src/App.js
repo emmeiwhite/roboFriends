@@ -8,6 +8,8 @@ const h2Style = {
   fontFamily: "agency fb",
   fontSize: "2.5rem",
   marginBottom: "1rem",
+  color: "#fff",
+  textShadow: " 3px 4px #777",
 };
 
 class App extends Component {
