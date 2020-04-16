@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CardList from "./CardList";
 import { robots } from "./robots";
 import SearchRobos from "./SearchRobos";
+import RectLoader from "./svg/Loader";
 import "./App.css";
 
 const h2Style = {
@@ -16,11 +17,20 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      robots: robots,
+      robots: [],
       searchField: "",
     };
   }
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((result) => result.json())
+      .then((data) => {
+        this.setState({
+          robots: data,
+        });
+      });
+  }
   handleSearchChange = (e) => {
     this.setState({
       searchField: e.target.value,
@@ -39,7 +49,11 @@ class App extends Component {
       <div className="App">
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
-        <CardList robots={filteredRobots} />
+        {filteredRobots.length > 0 ? (
+          <CardList robots={filteredRobots} />
+        ) : (
+          <RectLoader />
+        )}
       </div>
     );
   }
