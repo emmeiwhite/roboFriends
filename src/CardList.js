@@ -3,7 +3,9 @@ import Card from "./Card";
 
 const CardList = ({ robots }) => {
   const cardsArray = robots.map((card) => {
-    return <Card id={card.id} name={card.name} email={card.email} />;
+    return (
+      <Card id={card.id} name={card.name} email={card.email} key={card.id} />
+    );
   });
   return <div className="robots-wrapper">{cardsArray}</div>;
 };
