@@ -3,14 +3,15 @@ import CardList from "./../components/CardList";
 import SearchRobos from "./../components/SearchRobos";
 import RectLoader from "./../svg/Loader";
 import Scroll from "./../components/Scroll";
+import ErrorBoundary from "./ErrorBoundary";
 import "./App.css";
 
 const h2Style = {
   fontFamily: "agency fb",
   fontSize: "2.5rem",
   marginBottom: "1rem",
-  color: "#fff",
-  textShadow: " 3px 4px #777",
+  color: "orange",
+  textShadow: "5px 4px #00fff2",
 };
 
 class App extends Component {
@@ -54,7 +55,10 @@ class App extends Component {
         <h2 style={h2Style}>Robo Friends</h2>
         <SearchRobos handleChange={this.handleSearchChange} />
         <Scroll>
-          <CardList robots={filteredRobots} />
+          <ErrorBoundary>
+            <CardList robots={filteredRobots} />
+          </ErrorBoundary>
+          5{" "}
         </Scroll>
       </div>
     );
