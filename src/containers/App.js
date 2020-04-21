@@ -5,6 +5,23 @@ import RectLoader from "./../svg/Loader";
 import Scroll from "./../components/Scroll";
 import ErrorBoundary from "./ErrorBoundary";
 import "./App.css";
+import { connect } from 'react-redux';
+import { setSearchField } from './../action';
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    searchField: state.searchField
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSearchChange: (event) => { dispatch(setSearchField(event.target.value)) }
+  }
+}
 
 const h2Style = {
   fontFamily: "agency fb",
@@ -18,8 +35,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      robots: [],
-      searchField: "",
+      robots: []
     };
   }
 
@@ -33,15 +49,11 @@ class App extends Component {
       });
   }
 
-  handleSearchChange = (e) => {
-    this.setState({
-      searchField: e.target.value,
-    });
-  };
 
   render() {
     // Bug fixing of filtered Robots
-    const { robots, searchField } = this.state;
+    const { robots } = this.state;
+    const { searchField, handleSearchChange } = this.props;
     const filteredRobots = robots.filter((robot) => {
       return robot.name.toLowerCase().includes(searchField.toLowerCase());
     });
@@ -51,18 +63,18 @@ class App extends Component {
         <RectLoader />
       </div>
     ) : (
-      <div className="App">
-        <h2 style={h2Style}>Robo Friends</h2>
-        <SearchRobos handleChange={this.handleSearchChange} />
-        <Scroll>
-          <ErrorBoundary>
-            <CardList robots={filteredRobots} />
-          </ErrorBoundary>
+        <div className="App">
+          <h2 style={h2Style}>Robo Friends</h2>
+          <SearchRobos handleChange={handleSearchChange} />
+          <Scroll>
+            <ErrorBoundary>
+              <CardList robots={filteredRobots} />
+            </ErrorBoundary>
           5{" "}
-        </Scroll>
-      </div>
-    );
+          </Scroll>
+        </div>
+      );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
