@@ -27,8 +27,8 @@ const h2Style = {
   fontFamily: "agency fb",
   fontSize: "2.5rem",
   marginBottom: "1rem",
-  color: "orange",
-  textShadow: "5px 4px #00fff2",
+  color: "red",
+  textShadow: "2px 4px 3px #00fff2",
 };
 
 class App extends Component {
@@ -70,7 +70,7 @@ class App extends Component {
             <ErrorBoundary>
               <CardList robots={filteredRobots} />
             </ErrorBoundary>
-          5{" "}
+            {" "}
           </Scroll>
         </div>
       );
