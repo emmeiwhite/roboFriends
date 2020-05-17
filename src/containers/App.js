@@ -6,22 +6,26 @@ import Scroll from "./../components/Scroll";
 import ErrorBoundary from "./ErrorBoundary";
 import "./App.css";
 import { connect } from 'react-redux';
-import { setSearchField } from './../action';
+import { setSearchField, requestRobots } from './../action';
 
 
 
 const mapStateToProps = (state) => {
   return {
-    searchField: state.searchField
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error
   }
-}
+};
 
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSearchChange: (event) => { dispatch(setSearchField(event.target.value)) }
+    handleSearchChange: (event) => { dispatch(setSearchField(event.target.value)) },
+    onRequestRobots: () => dispatch(requestRobots()) // Thunk works on returned function 
   }
-}
+};
 
 const h2Style = {
   fontFamily: "agency fb",
@@ -40,25 +44,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((result) => result.json())
-      .then((data) => {
-        this.setState({
-          robots: data,
-        });
-      });
+    this.props.onRequestRobots(); // In async call, we make a call to our action creator
   }
 
 
   render() {
     // Bug fixing of filtered Robots
-    const { robots } = this.state;
-    const { searchField, handleSearchChange } = this.props;
+    const { searchField, handleSearchChange, robots, isPending } = this.props;
+
+    console.log(`${robots}`);
     const filteredRobots = robots.filter((robot) => {
       return robot.name.toLowerCase().includes(searchField.toLowerCase());
     });
 
-    return !robots.length ? (
+    return isPending ? (
       <div style={{ textAlign: "center" }}>
         <RectLoader />
       </div>

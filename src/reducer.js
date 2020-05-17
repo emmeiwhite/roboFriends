@@ -6,12 +6,12 @@ import {
 } from './constants';
 
 /** --- THE APPLICATION STATE --- */
-const initialState = {
+const initialStateSearch = {
   searchField: ''
 };
 
 /** --- Synchronous Action handled by the searchRobots reducer --- */
-export const searchRobots = (state = initialState, action = {}) => {
+export const searchRobots = (state = initialStateSearch, action = {}) => {
   switch (action.type) {
     case CHANGE_SEARCHFIELD:
       return Object.assign({}, state, { searchField: action.payload })
@@ -21,15 +21,20 @@ export const searchRobots = (state = initialState, action = {}) => {
 };
 
 /** --- Now Creating the reducer function to handle our Asynchronous call --- */
+const initialStateRobots = {
+  isPending: false,
+  robots: [],
+  error: ''
+}
 
-export const requestRobots = (state = initialState, action = {}) => {
+export const requestRobots = (state = initialStateRobots, action = {}) => {
   switch (action.type) {
     case REQUEST_ROBOTS_PENDING:
       return Object.assign({}, state, { isPending: true });
     case REQUEST_ROBOTS_SUCCESS:
-      return Object.assign({}, state, { isPending: false });
+      return Object.assign({}, state, { robots: action.payload, isPending: false });
     case REQUEST_ROBOTS_FAILURE:
-      return Object.assign({}, state, { isPending: false });
+      return Object.assign({}, state, { error: action.payload, isPending: false });
     default:
       return state;
   }
